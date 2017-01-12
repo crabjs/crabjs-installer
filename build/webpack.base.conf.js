@@ -42,13 +42,6 @@ module.exports = {
                     presets: ['es2015', 'stage-2']
                 }
             }, {
-                test: /\.css$/,
-                exclude: /\.useable\.css$/,
-                loader: "style!css"
-            }, {
-                test: /\.useable\.css$/,
-                loader: "style/useable!css"
-            }, {
                 test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
                 loader: 'file-loader'
             }, {
@@ -64,7 +57,7 @@ module.exports = {
         ]
     },
     vue: {
-        loaders: utils.cssLoaders({sourceMap: false}),
+        loaders: utils.cssLoaders({sourceMap: true}),
         postcss: [
             require('autoprefixer')({
                 browsers: ['last 2 versions']
