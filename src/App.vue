@@ -21,7 +21,8 @@
 <style>
 html {
     background: #F5F5F5;
-    font-family: monospace
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
 }
 
 span, strong {
@@ -29,7 +30,8 @@ span, strong {
 }
 
 span, div {
-    font-family: monospace;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
 }
 
 #crabjs {
