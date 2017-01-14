@@ -5,7 +5,9 @@
                         If you are ready, time now to...
                     </span>
         <el-row class="box-button">
-            <router-link to="/fill-information"><el-button size="small" type="primary">Run the install</el-button></router-link>
+            <router-link to="/fill-information">
+                <el-button @click="next" size="small" type="primary">Run the install</el-button>
+            </router-link>
         </el-row>
     </el-card>
 </template>
@@ -16,7 +18,13 @@ export default {
         return {
             crabjs: 'Run The Install'
         }
+    },
+    methods: {
+        next: function() {
+            this.$parent.$parent.$parent.stepActive = 3
+        }
     }
 }
+
 
 </script>

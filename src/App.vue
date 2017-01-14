@@ -2,7 +2,7 @@
     <div id="crabjs">
         <el-row :gutter="24">
             <el-col :span="4" :offset="2">
-                <el-steps direction="vertical" :space="150" :active="1">
+                <el-steps direction="vertical" :space="150" :active="stepActive" finish-status="success">
                     <el-step title="Get Started" icon="edit"></el-step>
                     <el-step title="Before Config" icon="upload"></el-step>
                     <el-step title="Configuration" icon="setting"></el-step>
@@ -57,7 +57,8 @@ span, div {
 export default {
     data() {
         return {
-            msg: 'Hello, Installer for Crabjs!!'
+            msg: 'Hello, Installer for Crabjs!!',
+            stepActive: 1
         }
     }
 }
