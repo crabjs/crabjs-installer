@@ -23,9 +23,36 @@ const router = new VueRouter({
     routes: [
         {path: '/', component: GetStarted},
         {path: '/setup-config', component: BeforeConfig},
-        {path: '/config', component: Config},
-        {path: '/install', component: RunTheInstall},
-        {path: '/fill-information', component: FillInformation},
+        {
+            path: '/config', component: Config,
+            beforeEnter: (to, from, next) => {
+                if (from.path === "/setup-config" && to.path === "/config") {
+                    next();
+                } else {
+                    next(false);
+                }
+            }
+        },
+        {
+            path: '/install', component: RunTheInstall,
+            beforeEnter: (to, from, next) => {
+                if (from.path === "/config" && to.path === "/install") {
+                    next();
+                } else {
+                    next(false);
+                }
+            }
+        },
+        {
+            path: '/fill-information', component: FillInformation,
+            beforeEnter: (to, from, next) => {
+                if (from.path === "/install" && to.path === "/fill-information") {
+                    next();
+                } else {
+                    next(false);
+                }
+            }
+        },
         {path: '/installation', component: Installation},
         {path: '*', component: NotFound}
     ]
