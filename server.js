@@ -6,7 +6,8 @@ let http = require('http'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
-    favicon = require('serve-favicon')
+    favicon = require('serve-favicon'),
+    MongoClient = require('mongodb').MongoClient;
 
 const app = express()
 const PORT = 1336
@@ -39,12 +40,26 @@ app.get('/api/expect/:code', (req, res) => {
     console.log(req.params.code)
 
     if (req.params.code in params) {
-        setTimeout(()=> {
-            res.status(200).json(params[req.params.code])
-        }, 2000)
+        res.status(200).json(params[req.params.code])
     } else {
         res.status(404).json({message: "Not Found!"})
     }
+})
+
+app.post('/api/mongodb/connection', (req, res) => {
+    let URI = 'mongodb://localhost:27017/example';
+
+    MongoClient.connect(URI).then(db => {
+        res.json({
+            status: 1,
+            message: "Connected!!"
+        });
+    }).catch(err => {
+        res.json({
+            status: 0,
+            message: err.message,
+        });
+    })
 })
 
 // catch 404 and forward to error handler

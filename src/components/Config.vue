@@ -1,6 +1,8 @@
 <template>
     <el-card class="box-card">
         <div slot="header" class="clearfix">
+            <el-alert v-show="showAlert" title="Connect Failed!!" type="error" show-icon></el-alert>
+            <br>
             <span>Below you should enter your database connection details. If you're not sure about these, contact your server.</span>
         </div>
         <el-form label-position="left" label-width="120px">
@@ -37,27 +39,44 @@
         iconStatus: "el-icon-information el-icon-left",
         typeStatus: "warning",
         loading: false,
-        incorrect: true
+        incorrect: true,
+        showAlert: false
       };
     },
     methods: {
         next: function() {
 
         },
+
+        // FIXME: skip for step, :(
         testConnection: function() {
             var self = this;
-            this.iconStatus = '';
             this.loading = true;
-            setTimeout(()=> {
+            this.iconStatus = '';
+            fetch('/api/mongodb/connection', {
+                method: 'post'
+            }).then(res => {
+                setTimeout(function() {
+                    if (res.status === 1) {
+                        self.loading = false;
+                        self.iconStatus = 'el-icon-check el-icon-left';
+                        self.typeStatus = 'success';
+                        self.incorrect = false;
+                    } else if (res.status === 0) {
+                        self.loading = false;
+                        self.iconStatus = 'el-icon-information el-icon-left';
+                        self.typeStatus = 'danger';
+                        self.incorrect = true;
+                        self.showAlert = true;
+                    }
+                }, 500);
+            }).catch(ex => {
                 self.loading = false;
-                self.iconStatus = 'el-icon-check el-icon-left';
-                self.typeStatus = 'success';
-                self.incorrect = false;
-            }, 1000)
+                self.iconStatus = 'el-icon-information el-icon-left';
+                self.typeStatus = 'danger';
+                self.incorrect = true;
+            })
         }
     }
   }
-
-
-
 </script>
